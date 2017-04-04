@@ -8,6 +8,8 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by JackSparrow on 4/3/2017.
@@ -22,6 +24,8 @@ public class GetlinksOfGoodsOnEachPage {
     private String nextpage;
     private int m =0;
     GetInformationAboutGood info = new GetInformationAboutGood();
+
+    ExecutorService pool1 = Executors.newCachedThreadPool();
 
     public void getLinksofGoods (String firstpage) throws IOException {
         do {
@@ -42,7 +46,13 @@ public class GetlinksOfGoodsOnEachPage {
                 break;
             }
             for(String goodinformation: goodLinksList){
-                info.getInformationAboutGood(goodinformation);
+                pool1.execute(()-> {
+                    try {
+                        info.getInformationAboutGood(goodinformation);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
             }
         }while (nextpage!=null);
     }
