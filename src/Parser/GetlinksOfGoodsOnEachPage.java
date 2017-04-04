@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+
 /**
  * Created by JackSparrow on 4/3/2017.
  */
@@ -24,10 +25,10 @@ public class GetlinksOfGoodsOnEachPage {
     private String nextpage;
     private int m =0;
     GetInformationAboutGood info = new GetInformationAboutGood();
-
     ExecutorService pool1 = Executors.newCachedThreadPool();
 
-    public void getLinksofGoods (String firstpage) throws IOException {
+    public void getLinksofGoods (String firstpage) throws IOException, InterruptedException {
+
         do {
             fornextpage = "?page=" + (m + 1);
             doc = Jsoup.connect(firstpage+fornextpage ).get();
@@ -38,7 +39,7 @@ public class GetlinksOfGoodsOnEachPage {
         for (Element test : webs) {
             goodLinksList.add(test.attr("abs:href"));
         }
-            m++;
+
             try {
                 nextpage = doc.select("link[rel=next]").first().attr("href");
             } catch (NullPointerException e1) {
@@ -46,6 +47,7 @@ public class GetlinksOfGoodsOnEachPage {
                 break;
             }
             for(String goodinformation: goodLinksList){
+
                 pool1.execute(()-> {
                     try {
                         info.getInformationAboutGood(goodinformation);
@@ -53,8 +55,9 @@ public class GetlinksOfGoodsOnEachPage {
                         e.printStackTrace();
                     }
                 });
-            }
+            } m++;
         }while (nextpage!=null);
+
     }
 
 }
