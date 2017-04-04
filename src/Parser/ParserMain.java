@@ -2,11 +2,10 @@
 package Parser;
 
 
-import javax.jws.soap.SOAPBinding;
+import Parser.Methods.GetLinksOfCategories;
+import Parser.Methods.GetlinksOfGoodsOnEachPage;
+
 import java.io.IOException;
-import java.util.Scanner;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Created by JackSparrow on 4/3/2017.

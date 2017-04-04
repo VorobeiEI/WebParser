@@ -1,4 +1,4 @@
-package Parser;
+package Parser.Methods;
 
 import Parser.OfferPackage.Offer;
 import org.jsoup.Jsoup;
