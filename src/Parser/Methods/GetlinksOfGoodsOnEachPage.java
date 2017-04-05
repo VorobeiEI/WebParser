@@ -20,7 +20,6 @@ public class GetlinksOfGoodsOnEachPage {
     private Document doc;
     private List<String> goodLinksList;
     private Elements goodLinks;
-    private Elements webs;
     private String fornextpage;
     private String nextpage;
     private int m =0;
@@ -33,10 +32,9 @@ public class GetlinksOfGoodsOnEachPage {
             fornextpage = "?page=" + (m + 1);
             doc = Jsoup.connect(firstpage+fornextpage ).get();
             System.out.println(firstpage+fornextpage);
-            goodLinks = doc.select("div[class^=product-image]");
-            webs = goodLinks.select("a");
-        goodLinksList = new ArrayList<>();
-        for (Element test : webs) {
+            goodLinks = doc.select("div[class^=product-image]").select("a");
+            goodLinksList = new ArrayList<>();
+        for (Element test : goodLinks) {
             goodLinksList.add(test.attr("abs:href"));
         }
 
@@ -47,7 +45,6 @@ public class GetlinksOfGoodsOnEachPage {
                 break;
             }
             for(String goodinformation: goodLinksList){
-
                 pool1.execute(()-> {
                     try {
                         info.getInformationAboutGood(goodinformation);

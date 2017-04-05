@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class GetInformationAboutGood {
     private Document doc;
-    private String article, brend, name, price, discountprice,description,keyword;
+
     private Offer offer;
     private List<Offer> listoffers;
 
@@ -33,10 +33,7 @@ public class GetInformationAboutGood {
 
            System.out.println(offer);
        }
-
-        //System.out.println(toString());}
-
-    }
+}
 
 
 
